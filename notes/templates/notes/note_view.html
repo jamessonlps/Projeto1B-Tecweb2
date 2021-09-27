@@ -1,0 +1,45 @@
+{% extends "notes/base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% if note %}
+    <form method="POST">
+        {% csrf_token %}
+        <input hidden="True" value="{{ note.id }}" name="id"/>
+        
+        <label for="titulo">Título</label>
+        <input 
+            placeholder="Máximo 100 caracteres" 
+            maxlength="100" 
+            id="titulo" 
+            type="text" 
+            name="titulo"
+            value="{{ note.title }}"
+        />
+            
+        <label for="detalhes">Detalhes</label>
+        <input 
+            placeholder="{{ note.content }}" 
+            maxlength="1000" 
+            id="detalhes" 
+            type="text"
+            name="detalhes"
+            value="{{ note.content }}"
+        />
+        
+        <label for="tag">Tag</label>
+        <input 
+            maxlength="25" 
+            id="tag" 
+            type="text"
+            name="tag"
+            placeholder="Máximo 25 caracteres"
+            value="{{ note.tag }}"
+        />
+
+        <input type="submit" name="update" />
+    </form>
+{% endif %}
+
+{% endblock %}

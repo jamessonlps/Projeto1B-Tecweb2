@@ -1,0 +1,18 @@
+{% extends "notes/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    {% if tags %}
+        <ul>
+        {% for tag in tags %}
+            {% if tag.text|length > 0 %}
+                <li>{{ tag.text }}</li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Não há nenhuma tag por aqui...</p>
+    {% endif %}
+
+{% endblock %}

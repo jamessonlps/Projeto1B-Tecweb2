@@ -8,15 +8,57 @@
 <form method="POST">
     {% csrf_token %}
     <label for="titulo">Título</label>
-    <input id="titulo" type="text" name="titulo" />
+    <input 
+        placeholder="Máximo 100 caracteres" 
+        maxlength="100" 
+        id="titulo" 
+        type="text" 
+        name="titulo" 
+    />
+
     <label for="detalhes">Detalhes</label>
-    <textarea id="detalhes" name="detalhes"></textarea>
-    <input type="submit" />
+    <textarea 
+        placeholder="Máximo 1000 caracteres" 
+        maxlength="1000" 
+        id="detalhes" 
+        name="detalhes">
+    </textarea>
+
+    <label for="tag">Tag</label>
+    <textarea 
+        maxlength="25" 
+        id="tag" 
+        name="tag" 
+        placeholder="Máximo 25 caracteres">
+    </textarea>
+
+    <input type="submit" name="create" value="Criar" />
 </form>
+
+<a href="{% url 'notes:tags' %}">Ver todas as tags</a>
 
 <ul>
     {% for note in notes %}
-        <li>{{ note.title }}: {{ note.content }}</li>
+        <div class="card">
+            <h3 class="card-title">{{ note.title }}</h3>
+        
+            <div class="card-content">
+                <p>{{ note.content }}</p>
+            </div>
+        
+            <form method="POST">
+                {% csrf_token %}
+                <input hidden="True" value="{{ note.id }}" name="id"/>
+                <input hidden="True" value="{{ note.title }}" name="titulo"/>
+                <input hidden="True" value="{{ note.content }}" name="detalhes"/>
+                <input hidden="True" value="{{ note.tag }}" name="tag"/>
+
+                <input class="btn-delete" type="submit" name="delete" value="Deletar"/>
+
+            </form>
+            <a href="{% url 'notes:note_view' note.id %}">Ver mais</a>
+        
+        </div>
     {% endfor %}
-  </ul>
+</ul>
 {% endblock %}

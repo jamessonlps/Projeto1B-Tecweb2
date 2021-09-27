@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#h1yx-phkrul_**2_#%4q13igzan7l_by9i=lywm3aj50e&fo7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'getitofthegods.herokuapp.com', 
@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'getit.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://localhost/getit?user=jamessonlps&password=meunumeroe81845520',
+        default='postgresql://localhost/getit?user=getituser&password=getitsenha',
         conn_max_age=600,
         ssl_require=not DEBUG
     )

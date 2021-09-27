@@ -7,7 +7,7 @@
         <img src="{% static 'notes/img/logo-getit.png' %}" class="logo"/>
         <p class="subtitle main-font">Como o Post-it, mas com o verbo dos deuses</p>
     </div>
-    <a href="{% url 'notes:tags' %}" class="tag-appbar">
+    <a href="{% url 'notes:tags' %}" class="tag-appbar up-effect">
         <span class="main-font">MINHAS TAGS&nbsp;</span>
         <img src="{% static 'notes/img/tag.png' %}" class="tag-img" />
     </a>
@@ -71,7 +71,7 @@
                         </button>
         
                         
-                        <a href="{% url 'notes:note_view' note.id %}">
+                        <a class="btn-edit" href="{% url 'notes:note_view' note.id %}">
                             <img width="24" src="{% static 'notes/img/edit.png' %}"/>
                         </a>
                     </div>

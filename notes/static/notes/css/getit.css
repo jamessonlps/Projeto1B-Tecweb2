@@ -108,6 +108,11 @@ a {
   color: black;
 }
 
+.up-effect:hover {
+  transform: scale(1.05);
+  transition: 0.3s;
+}
+
 .tag-img {
   width: 3rem;
 }
@@ -344,9 +349,41 @@ span.main-font {
   text-align: center;
 }
 
-.btn-del:hover{
-  cursor: pointer
+.btn-del:hover, .btn-edit:hover{
+  cursor: pointer;
+  animation: shake 0.35s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 500px;
 }
+
+
+@keyframes shake {
+  0% {
+    transform: translateX(0px) rotate(0deg);
+  }
+  
+  20% {
+    transform: translateX(-4px) rotate(-4deg);
+  }
+  
+  40% {
+    transform: translateX(-2px) rotate(-2deg);
+  }
+  
+  60% {
+    transform: translateX(4px) rotate(4deg);
+  }
+  
+  80% {
+    transform: translateX(2px) rotate(2deg);
+  }
+  
+  100% {
+    transform: translateX(0px) rotate(0deg);
+  }
+}
+
 
 .card-color-1 {
   background-color: #ead3a7;

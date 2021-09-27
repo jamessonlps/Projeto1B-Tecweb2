@@ -3,61 +3,82 @@
 
 {% block content %}
 <div class="appbar">
-    <img src="{% static 'notes/img/logo-getit.png' %}" class="logo"/>
-    <p class="subtitle">Como o Post-it, mas com o verbo dos deuses</p>
+    <div class="title-appbar">
+        <img src="{% static 'notes/img/logo-getit.png' %}" class="logo"/>
+        <p class="subtitle">Como o Post-it, mas com o verbo dos deuses</p>
+    </div>
+    <a href="{% url 'notes:tags' %}" class="tag-appbar">
+        <span>Ver todas as tags</span>
+        <img src="{% static 'notes/img/tag.png' %}" class="tag-img" />
+    </a>
 </div>
 
 <div class="container">
     <form class="form-card" method="POST">
         {% csrf_token %}
-        <label for="titulo">Título</label>
         <input 
             class="form-card-title" 
-            maxlength="100" 
+            maxlength="40" 
             id="titulo" 
             type="text" 
-            name="titulo" 
+            name="titulo"
+            placeholder="Título" 
         />
     
-        <label for="detalhes">Detalhes</label>
         <textarea 
             class="autoresize"
-            maxlength="1000" 
+            maxlength="100" 
             id="detalhes" 
+            placeholder="Digite o conteúdo..."
             name="detalhes"></textarea>
     
-        <label for="tag">Tag</label>
-        <textarea 
-            maxlength="25" 
+        <input 
+            maxlength="20" 
             id="tag" 
             class="autoresize"
-            name="tag"></textarea>
+            placeholder="Tag"
+            name="tag"/>
     
         <input class="btn" type="submit" name="create" value="Criar" />
     </form>
     
-    <a href="{% url 'notes:tags' %}">Ver todas as tags</a>
-    
     <ul class="card-container">
         {% for note in notes %}
-            <div class="card">
-                <h3 class="card-title">{{ note.title }}</h3>
-            
-                <p class="card-content">{{ note.content }}</p>
-            
-                <form class="card-content" method="POST">
-                    {% csrf_token %}
+            <form class="card" method="POST">
+                {% csrf_token %}
+                <div class="card-title">
+                    <h3 class="card-title">{{ note.title }}</h3>
+                </div>
+
+                <div class="card-content">
+                    <p class="card-content">{{ note.content }}</p>
                     <input hidden="True" value="{{ note.id }}" name="id"/>
                     <input hidden="True" value="{{ note.title }}" name="titulo"/>
                     <input hidden="True" value="{{ note.content }}" name="detalhes"/>
                     <input hidden="True" value="{{ note.tag }}" name="tag"/>
-    
-                    <input class="btn-delete" type="submit" name="delete" value="Deletar"/>
-    
-                </form>
-                <a href="{% url 'notes:note_view' note.id %}">Ver mais</a>
+                </div>
             
-            </div>
+
+                <div class="btns">
+                    <div style="display: flex;flex-direction: row;">
+                        <button class="btn-del" type="submit" name=delete>
+                            <img src="{% static 'notes/img/delete.png' %}" width="24">
+                        </button>
+        
+                        
+                        <a href="{% url 'notes:note_view' note.id %}">
+                            <img width="24" src="{% static 'notes/img/edit.png' %}"/>
+                        </a>
+                    </div>
+
+                    {% if note.tag != None %}
+                    <div class="card-tag">
+                        <p style="margin: 0;">{{ note.tag }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+                
+            </form>
         {% endfor %}
     </ul>
 </div>

@@ -3,34 +3,58 @@
 
 {% block content %}
 <div class="appbar">
-    <img src="{% static 'notes/img/logo-getit.png' %}" class="logo"/>
-    <p class="subtitle">Como o Post-it, mas com o verbo dos deuses</p>
-    
-    <a href="{% url 'notes:index' %}">Voltar</a>
+    <div class="title-appbar">
+        <img src="{% static 'notes/img/logo-getit.png' %}" class="logo"/>
+        <p class="subtitle">Como o Post-it, mas com o verbo dos deuses</p>
+    </div>
 </div>
+
 
 <ul class="card-container">
     {% for note in notes %}
-        <div class="card">
+    <form class="card" method="POST">
+        {% csrf_token %}
+        <div class="card-title">
             <h3 class="card-title">{{ note.title }}</h3>
-        
-            <p class="card-content">{{ note.content }}</p>
-        
-            <form class="card-content" method="POST">
-                {% csrf_token %}
-                <input hidden="True" value="{{ note.id }}" name="id"/>
-                <input hidden="True" value="{{ note.title }}" name="titulo"/>
-                <input hidden="True" value="{{ note.content }}" name="detalhes"/>
-                <input hidden="True" value="{{ note.tag }}" name="tag"/>
-
-                <input class="btn-delete" type="submit" name="delete" value="Deletar"/>
-
-            </form>
-            <a href="{% url 'notes:note_view' note.id %}">Ver mais</a>
-        
         </div>
+
+        <div class="card-content">
+            <p class="card-content">{{ note.content }}</p>
+            <input hidden="True" value="{{ note.id }}" name="id"/>
+            <input hidden="True" value="{{ note.title }}" name="titulo"/>
+            <input hidden="True" value="{{ note.content }}" name="detalhes"/>
+            <input hidden="True" value="{{ note.tag }}" name="tag"/>
+        </div>
+    
+
+        <div class="btns">
+            <div style="display: flex;flex-direction: row;">
+                <button class="btn-del" type="submit" name=delete>
+                    <img src="{% static 'notes/img/delete.png' %}" width="24">
+                </button>
+
+                
+                <a href="{% url 'notes:note_view' note.id %}">
+                    <img width="24" src="{% static 'notes/img/edit.png' %}"/>
+                </a>
+            </div>
+
+            {% if note.tag != None %}
+            <div class="card-tag">
+                <p style="margin: 0;">{{ note.tag }}</p>
+            </div>
+            {% endif %}
+        </div>
+        
+    </form>
     {% endfor %}
 </ul>
+
+<div class="back-home-container">
+    <a class="back-home" href="{% url 'notes:index' %}">
+        <span style="padding-left: 0.3rem;">Ver todas as notas</span>
+    </a>
+</div>
 
 <script type="text/javascript" src="{% static 'notes/script/getit.js' %}"></script>
 

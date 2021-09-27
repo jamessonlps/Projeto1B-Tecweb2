@@ -2,44 +2,59 @@
 {% load static %}
 
 {% block content %}
+<div class="appbar">
+    <div class="title-appbar">
+        <img src="{% static 'notes/img/logo-getit.png' %}" class="logo"/>
+        <p class="subtitle">Como o Post-it, mas com o verbo dos deuses</p>
+    </div>
+</div>
 
-{% if note %}
-    <form method="POST">
+<a class="back-notes" href="{% url 'notes:index' %}">
+    <img width="24" src="{% static 'notes/img/left-arrow.png' %}">
+    <span style="padding-left: 0.3rem;">Voltar</span>
+</a>
+
+<div class="container">
+    {% if note %}
+    <form class="form-card" method="POST">
         {% csrf_token %}
-        <input hidden="True" value="{{ note.id }}" name="id"/>
-        
-        <label for="titulo">Título</label>
         <input 
-            placeholder="Máximo 100 caracteres" 
-            maxlength="100" 
+            class="form-card-title" 
+            maxlength="40" 
             id="titulo" 
             type="text" 
             name="titulo"
-            value="{{ note.title }}"
+            value="{{ note.title }}" 
         />
-            
-        <label for="detalhes">Detalhes</label>
-        <input 
-            placeholder="{{ note.content }}" 
-            maxlength="1000" 
-            id="detalhes" 
-            type="text"
-            name="detalhes"
-            value="{{ note.content }}"
-        />
-        
-        <label for="tag">Tag</label>
-        <input 
-            maxlength="25" 
-            id="tag" 
-            type="text"
-            name="tag"
-            placeholder="Máximo 25 caracteres"
-            value="{{ note.tag }}"
-        />
+    
+        <textarea 
+            class="autoresize"
+            maxlength="100" 
+            id="detalhes"
+            name="detalhes">{{ note.content }}</textarea>
+    
+        {% if note.tag != None %}
+            <input 
+                maxlength="20" 
+                id="tag" 
+                class="autoresize"
+                placeholder="{{ note.tag }}"
+                name="tag"
+            />
+        {% else %}
+            <input
+                maxlength="20" 
+                id="tag" 
+                class="autoresize"
+                placeholder="Tag"
+                name="tag"
+            />
+        {% endif %}
 
-        <input type="submit" name="update" />
+    
+        <input class="btn" type="submit" name="update" value="Atualizar" />
     </form>
-{% endif %}
+    {% endif %}
+</div>
 
 {% endblock %}

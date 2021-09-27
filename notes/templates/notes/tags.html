@@ -3,17 +3,24 @@
 
 {% block content %}
 <div class="appbar">
-    <img src="{% static 'notes/img/logo-getit.png' %}" class="logo"/>
-    <p class="subtitle">Como o Post-it, mas com o verbo dos deuses</p>
-
-    <a href="{% url 'notes:index' %}">Voltar</a>
+    <div class="title-appbar">
+        <img src="{% static 'notes/img/logo-getit.png' %}" class="logo"/>
+        <p class="subtitle">Como o Post-it, mas com o verbo dos deuses</p>
+    </div>
 </div>
+
+<a class="back-notes" href="{% url 'notes:index' %}">
+    <img width="24" src="{% static 'notes/img/left-arrow.png' %}">
+    <span style="padding-left: 0.3rem;">Voltar</span>
+</a>
 
 {% if tags %}
     <div class="tag-container">
     {% for tag in tags %}
-        <div class="tag-card">
-            <a href="{% url 'notes:notes_by_tag' tag.id %}" style="margin: 0;">{{ tag.text }}</a>
+        <div class="card">
+            <a class="tag-card-text" href="{% url 'notes:notes_by_tag' tag.id %}" style="margin: 0;">
+                <h2 class="h2">{{ tag.text }}</h2>
+            </a>
         </div>
     {% endfor %}
     </div>

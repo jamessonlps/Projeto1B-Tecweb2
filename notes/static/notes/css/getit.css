@@ -26,7 +26,11 @@ html,
 body {
   font-family: "Roboto", sans-serif;
 }
- 
+
+a {
+  text-decoration: none;
+  color: #2c2c2c;
+}
  /* Você pode usar o CSS comentado abaixo, se ajudar */
  /* Fonte: https://codepen.io/CrisWoler/pen/ogXBLj */
 .btn {
@@ -43,6 +47,12 @@ body {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
   background-color: #f7d736;
   transition: background-color 0.3s;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: #fcd200;
+  transition: 0.3s;
 }
  
 .btn > * {
@@ -109,7 +119,7 @@ body {
 }
 
 .subtitle { 
-
+  font-size: 1.3rem;
   align-self: center;
   margin-left: 0.5rem;
 }
@@ -138,10 +148,13 @@ body {
   font-weight: bold;
   padding: 0.2rem;
   border-style: none;
+  
 }
- 
+
 .form-card-title:focus, .autoresize:focus {
   outline: 0;
+  border-radius: 0.3rem;
+  box-shadow: 0 0 6px #9ecaed;
 }
  
 .autoresize {
@@ -178,6 +191,14 @@ body {
 
   box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
   
+}
+
+.main-font {
+  font-family: "Permanent Marker", cursive;
+}
+
+span.main-font {
+  font-weight: bold;
 }
 
 .tag-card-text {
@@ -255,7 +276,14 @@ body {
   border: 1px solid gray;
   border-radius: 1rem;
   padding: 0 1rem;
+  
+}
 
+.card-tag:hover {
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .btns {
@@ -338,4 +366,8 @@ body {
   background-color: #ef89ba;
   border: 1px solid black;
   padding: 2rem;
+}
+
+.no-tag {
+  text-align: center;
 }

@@ -5,7 +5,7 @@
 <div class="appbar">
     <div class="title-appbar">
         <img src="{% static 'notes/img/logo-getit.png' %}" class="logo"/>
-        <p class="subtitle">Como o Post-it, mas com o verbo dos deuses</p>
+        <p class="subtitle main-font">Como o Post-it, mas com o verbo dos deuses</p>
     </div>
 </div>
 
@@ -25,7 +25,7 @@
     {% endfor %}
     </div>
 {% else %}
-    <p>Não há nenhuma tag por aqui...</p>
+    <p class="no-tag main-font">Não há nenhuma tag por aqui...</p>
 {% endif %}
 
     <script type="text/javascript" src="{% static 'notes/script/getit.js' %}"></script>

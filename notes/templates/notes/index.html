@@ -5,10 +5,10 @@
 <div class="appbar">
     <div class="title-appbar">
         <img src="{% static 'notes/img/logo-getit.png' %}" class="logo"/>
-        <p class="subtitle">Como o Post-it, mas com o verbo dos deuses</p>
+        <p class="subtitle main-font">Como o Post-it, mas com o verbo dos deuses</p>
     </div>
     <a href="{% url 'notes:tags' %}" class="tag-appbar">
-        <span>Ver todas as tags</span>
+        <span class="main-font">MINHAS TAGS</span>
         <img src="{% static 'notes/img/tag.png' %}" class="tag-img" />
     </a>
 </div>
@@ -73,7 +73,7 @@
 
                     {% if note.tag != None %}
                     <div class="card-tag">
-                        <p style="margin: 0;">{{ note.tag }}</p>
+                        <a href="{% url 'notes:notes_by_tag' note.tag.id %}">{{ note.tag }}</a>
                     </div>
                     {% endif %}
                 </div>

@@ -1,11 +1,16 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html style="min-height: 100%;">
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Get-it</title>
+
+        <link rel="stylesheet" href="{% static 'notes/css/getit.css' %}" />
     </head>
 
-    <body>
+    <body style="margin: 0; min-height: 100%;">
         {% block content %} {% endblock %}
     </body>
 </html>

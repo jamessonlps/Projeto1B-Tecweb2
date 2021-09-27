@@ -2,63 +2,66 @@
 {% load static %}
 
 {% block content %}
-<img width="100" src="{% static 'notes/img/logo-getit.png' %}" />
-<p>Como o Post-it, mas com outro verbo</p>
+<div class="appbar">
+    <img src="{% static 'notes/img/logo-getit.png' %}" class="logo"/>
+    <p class="subtitle">Como o Post-it, mas com o verbo dos deuses</p>
+</div>
 
-<form method="POST">
-    {% csrf_token %}
-    <label for="titulo">Título</label>
-    <input 
-        placeholder="Máximo 100 caracteres" 
-        maxlength="100" 
-        id="titulo" 
-        type="text" 
-        name="titulo" 
-    />
-
-    <label for="detalhes">Detalhes</label>
-    <textarea 
-        placeholder="Máximo 1000 caracteres" 
-        maxlength="1000" 
-        id="detalhes" 
-        name="detalhes">
-    </textarea>
-
-    <label for="tag">Tag</label>
-    <textarea 
-        maxlength="25" 
-        id="tag" 
-        name="tag" 
-        placeholder="Máximo 25 caracteres">
-    </textarea>
-
-    <input type="submit" name="create" value="Criar" />
-</form>
-
-<a href="{% url 'notes:tags' %}">Ver todas as tags</a>
-
-<ul>
-    {% for note in notes %}
-        <div class="card">
-            <h3 class="card-title">{{ note.title }}</h3>
-        
-            <div class="card-content">
-                <p>{{ note.content }}</p>
+<div class="container">
+    <form class="form-card" method="POST">
+        {% csrf_token %}
+        <label for="titulo">Título</label>
+        <input 
+            class="form-card-title" 
+            maxlength="100" 
+            id="titulo" 
+            type="text" 
+            name="titulo" 
+        />
+    
+        <label for="detalhes">Detalhes</label>
+        <textarea 
+            class="autoresize"
+            maxlength="1000" 
+            id="detalhes" 
+            name="detalhes"></textarea>
+    
+        <label for="tag">Tag</label>
+        <textarea 
+            maxlength="25" 
+            id="tag" 
+            class="autoresize"
+            name="tag"></textarea>
+    
+        <input class="btn" type="submit" name="create" value="Criar" />
+    </form>
+    
+    <a href="{% url 'notes:tags' %}">Ver todas as tags</a>
+    
+    <ul class="card-container">
+        {% for note in notes %}
+            <div class="card">
+                <h3 class="card-title">{{ note.title }}</h3>
+            
+                <p class="card-content">{{ note.content }}</p>
+            
+                <form class="card-content" method="POST">
+                    {% csrf_token %}
+                    <input hidden="True" value="{{ note.id }}" name="id"/>
+                    <input hidden="True" value="{{ note.title }}" name="titulo"/>
+                    <input hidden="True" value="{{ note.content }}" name="detalhes"/>
+                    <input hidden="True" value="{{ note.tag }}" name="tag"/>
+    
+                    <input class="btn-delete" type="submit" name="delete" value="Deletar"/>
+    
+                </form>
+                <a href="{% url 'notes:note_view' note.id %}">Ver mais</a>
+            
             </div>
-        
-            <form method="POST">
-                {% csrf_token %}
-                <input hidden="True" value="{{ note.id }}" name="id"/>
-                <input hidden="True" value="{{ note.title }}" name="titulo"/>
-                <input hidden="True" value="{{ note.content }}" name="detalhes"/>
-                <input hidden="True" value="{{ note.tag }}" name="tag"/>
+        {% endfor %}
+    </ul>
+</div>
 
-                <input class="btn-delete" type="submit" name="delete" value="Deletar"/>
+<script type="text/javascript" src="{% static 'notes/script/getit.js' %}"></script>
 
-            </form>
-            <a href="{% url 'notes:note_view' note.id %}">Ver mais</a>
-        
-        </div>
-    {% endfor %}
-</ul>
 {% endblock %}

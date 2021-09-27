@@ -100,3 +100,50 @@ def note_view(request, note_id):
             template_name='notes/note_view.html',
             context={ "note": note }
         )
+
+
+def notes_by_tag(request, tag_id):
+    if request.method == 'POST':
+        title = request.POST.get('titulo')
+        content = request.POST.get('detalhes')
+        tag = None
+
+        all_tags = Tag.objects.filter(id__eq=tag_id)
+
+        # Verifica se uma tag foi inserida
+        if request.POST.__contains__('tag'):
+            tag_input = request.POST.get('tag')
+            # verifica se a tag não está vazia
+            if tag_input.replace(" ", "") != "":
+                tag = Tag(text=tag_input)
+                # verifica se a tag já existe
+                for tag_db in all_tags:
+                    if tag_db.text == tag_input:
+                        tag = tag_db
+                        break
+
+        new_note = Note(title=title, content=content, tag=tag)
+
+        # request para criar nota
+        if request.POST.__contains__('create'):
+            if tag is not None:
+                tag.save()
+            new_note.save()
+        
+        # Verifica se contém id (para solicitações de delete)
+        if request.POST.__contains__('id'):
+            note_id = request.POST.get('id')
+            note = Note(id=note_id, content=content, tag=tag)
+
+        # request para deletar note
+        if request.POST.__contains__('delete'):
+            note.delete()
+
+        return redirect('/')
+    else:
+        all_notes = Note.objects.all().filter(tag__id__exact=tag_id)
+        return render(
+            request=request, 
+            template_name='notes/notes_by_tag.html', 
+            context={ 'notes': all_notes }
+        )

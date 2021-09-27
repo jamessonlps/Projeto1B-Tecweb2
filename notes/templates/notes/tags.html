@@ -2,17 +2,25 @@
 {% load static %}
 
 {% block content %}
+<div class="appbar">
+    <img src="{% static 'notes/img/logo-getit.png' %}" class="logo"/>
+    <p class="subtitle">Como o Post-it, mas com o verbo dos deuses</p>
 
-    {% if tags %}
-        <ul>
-        {% for tag in tags %}
-            {% if tag.text|length > 0 %}
-                <li>{{ tag.text }}</li>
-            {% endif %}
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>Não há nenhuma tag por aqui...</p>
-    {% endif %}
+    <a href="{% url 'notes:index' %}">Voltar</a>
+</div>
+
+{% if tags %}
+    <div class="tag-container">
+    {% for tag in tags %}
+        <div class="tag-card">
+            <a href="{% url 'notes:notes_by_tag' tag.id %}" style="margin: 0;">{{ tag.text }}</a>
+        </div>
+    {% endfor %}
+    </div>
+{% else %}
+    <p>Não há nenhuma tag por aqui...</p>
+{% endif %}
+
+    <script type="text/javascript" src="{% static 'notes/script/getit.js' %}"></script>
 
 {% endblock %}

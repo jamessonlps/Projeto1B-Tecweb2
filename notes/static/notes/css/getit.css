@@ -172,7 +172,7 @@ a {
 .card-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content:center;
   max-width: 98%;
   margin-top: 2rem;
 }
@@ -184,7 +184,7 @@ a {
   justify-content: space-between;
   
   border-radius: 10px;
-  margin:   10px 5px;
+  margin:   10px 20px;
   padding: 10px;
   width: 13rem;
   min-height: 6rem;
@@ -336,6 +336,12 @@ span.main-font {
   text-decoration: none;
   border: none;
   background: none;
+}
+
+.msg-error {
+  font-family: "Permanent Marker", cursive;
+  color: red;
+  text-align: center;
 }
 
 .btn-del:hover{

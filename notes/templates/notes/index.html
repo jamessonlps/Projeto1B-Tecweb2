@@ -36,8 +36,12 @@
             maxlength="20" 
             id="tag" 
             class="autoresize"
-            placeholder="Tag"
+            placeholder="Tag (opcional)"
             name="tag"/>
+
+        {% if msg_error %}
+            <p class="msg-error">{{ msg_error }}</p>
+        {% endif %}
     
         <input class="btn" type="submit" name="create" value="Criar" />
     </form>

@@ -8,6 +8,17 @@ def index(request):
         content = request.POST.get('detalhes')
         tag = None
 
+        # verifica se o cabra preencheu o mínimo necessário mesmo
+        if ((title.replace(" ", "") == "") or (content.replace(" ", "") == "")):
+            return render(
+                request=request, 
+                template_name='notes/index.html', 
+                context={ 
+                    'notes': Note.objects.all(),
+                    "msg_error": "O título e o conteúdo não podem estar vazios!"
+                }
+            )
+
         all_tags = Tag.objects.all()
 
         # Verifica se uma tag foi inserida
@@ -76,6 +87,17 @@ def note_view(request, note_id):
         title = request.POST.get('titulo')
         content = request.POST.get('detalhes')
         tag = tag_entry
+
+        # verifica se o cabra preencheu o mínimo necessário mesmo
+        if ((title.replace(" ", "") == "") or (content.replace(" ", "") == "")):
+            return render(
+                request=request, 
+                template_name='notes/note_view.html', 
+                context={ 
+                    'note': note,
+                    "msg_error": "O título e o conteúdo não podem estar vazios!"
+                }
+            )
 
         all_tags = Tag.objects.all()
 

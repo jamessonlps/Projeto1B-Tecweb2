@@ -251,6 +251,17 @@ span.main-font {
   background-color: #f7d736;
 }
 
+.back-home:hover {
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: #ffd500;
+}
+
+.card-title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .card-title{
   font-size: 18px;
   color:#2c2c2c;
@@ -258,6 +269,7 @@ span.main-font {
   margin-bottom: 5px;
   margin-top: 5px;
 }
+
 
 .card-content{
   /* height: 100%; */
@@ -279,11 +291,37 @@ span.main-font {
   
 }
 
+.tag-box {
+  font-family: "Permanent Marker", cursive;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: .8rem;
+  padding: 1rem 2rem;
+  background-color: #f7d736;
+  border-radius: 1rem;
+  box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.tag-box:hover {
+  background-color: #ffd500;
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.2s;
+}
+
 .card-tag:hover {
   cursor: pointer;
   font-weight: bold;
   transition: 0.3s;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.tag-selected {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .btns {
@@ -356,6 +394,8 @@ span.main-font {
 .tag-container{
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
   padding: 1rem;
 }
 

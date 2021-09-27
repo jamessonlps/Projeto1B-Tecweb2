@@ -8,7 +8,7 @@
         <p class="subtitle main-font">Como o Post-it, mas com o verbo dos deuses</p>
     </div>
     <a href="{% url 'notes:tags' %}" class="tag-appbar">
-        <span class="main-font">MINHAS TAGS</span>
+        <span class="main-font">MINHAS TAGS&nbsp;</span>
         <img src="{% static 'notes/img/tag.png' %}" class="tag-img" />
     </a>
 </div>
@@ -46,8 +46,9 @@
         {% for note in notes %}
             <form class="card" method="POST">
                 {% csrf_token %}
-                <div class="card-title">
+                <div class="card-title-container">
                     <h3 class="card-title">{{ note.title }}</h3>
+                    <img src="{% static 'notes/img/pin.png' %}" height="24">
                 </div>
 
                 <div class="card-content">

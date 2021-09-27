@@ -51,7 +51,14 @@ def index(request):
 
 def tags(request):
     all_tags = Tag.objects.all()
-    context = { "tags": all_tags }
+    count = {}
+    for tag in all_tags:
+        count[tag.id] = Note.objects.filter(tag__id__exact=tag.id).count() or 0
+
+    context = { 
+        "tags": all_tags, 
+        "counter": count
+    }
     
     return render(
         request=request,
@@ -63,11 +70,12 @@ def tags(request):
 
 def note_view(request, note_id):
     note = get_object_or_404(Note, pk=note_id)
+    tag_entry = note.tag
 
     if request.method == 'POST':
         title = request.POST.get('titulo')
         content = request.POST.get('detalhes')
-        tag = None
+        tag = tag_entry
 
         all_tags = Tag.objects.all()
 
@@ -106,9 +114,9 @@ def notes_by_tag(request, tag_id):
     if request.method == 'POST':
         title = request.POST.get('titulo')
         content = request.POST.get('detalhes')
-        tag = None
+        tag = get_object_or_404(Tag, pk=tag_id)
 
-        all_tags = Tag.objects.filter(id__eq=tag_id)
+        all_tags = Tag.objects.filter(id__exact=tag_id)
 
         # Verifica se uma tag foi inserida
         if request.POST.__contains__('tag'):
@@ -142,8 +150,12 @@ def notes_by_tag(request, tag_id):
         return redirect('/')
     else:
         all_notes = Note.objects.all().filter(tag__id__exact=tag_id)
+        tag_ = get_object_or_404(Tag, pk=tag_id)
         return render(
             request=request, 
             template_name='notes/notes_by_tag.html', 
-            context={ 'notes': all_notes }
+            context={
+                'notes': all_notes,
+                'tag': tag_
+            }
         )

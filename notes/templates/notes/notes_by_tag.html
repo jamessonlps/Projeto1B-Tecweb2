@@ -9,45 +9,53 @@
     </div>
 </div>
 
+<div class="tag-selected">
+    <img src="{% static 'notes/img/tag.png' %}" width="32" >
+    <h2 class="h2 main-font">&nbsp;{{ tag.text }}</h2>
+</div>
 
 <ul class="card-container">
-    {% for note in notes %}
-    <form class="card" method="POST">
-        {% csrf_token %}
-        <div class="card-title">
-            <h3 class="card-title">{{ note.title }}</h3>
-        </div>
-
-        <div class="card-content">
-            <p class="card-content">{{ note.content }}</p>
-            <input hidden="True" value="{{ note.id }}" name="id"/>
-            <input hidden="True" value="{{ note.title }}" name="titulo"/>
-            <input hidden="True" value="{{ note.content }}" name="detalhes"/>
-            <input hidden="True" value="{{ note.tag }}" name="tag"/>
-        </div>
-    
-
-        <div class="btns">
-            <div style="display: flex;flex-direction: row;">
-                <button class="btn-del" type="submit" name=delete>
-                    <img src="{% static 'notes/img/delete.png' %}" width="24">
-                </button>
-
-                
-                <a href="{% url 'notes:note_view' note.id %}">
-                    <img width="24" src="{% static 'notes/img/edit.png' %}"/>
-                </a>
+    {% if notes %}
+        {% for note in notes %}
+        <form class="card" method="POST">
+            {% csrf_token %}
+            <div class="card-title-container">
+                <h3 class="card-title">{{ note.title }}</h3>
+                <img src="{% static 'notes/img/pin.png' %}" height="24">
             </div>
 
-            {% if note.tag != None %}
-            <div class="card-tag">
-                <p style="margin: 0;">{{ note.tag }}</p>
+            <div class="card-content">
+                <p class="card-content">{{ note.content }}</p>
+                <input hidden="True" value="{{ note.id }}" name="id"/>
+                <input hidden="True" value="{{ note.title }}" name="titulo"/>
+                <input hidden="True" value="{{ note.content }}" name="detalhes"/>
+                <input hidden="True" value="{{ note.tag }}" name="tag"/>
             </div>
-            {% endif %}
-        </div>
         
-    </form>
-    {% endfor %}
+
+            <div class="btns">
+                <div style="display: flex;flex-direction: row;">
+                    <button class="btn-del" type="submit" name=delete>
+                        <img src="{% static 'notes/img/delete.png' %}" width="24">
+                    </button>
+
+                    
+                    <a href="{% url 'notes:note_view' note.id %}">
+                        <img width="24" src="{% static 'notes/img/edit.png' %}"/>
+                    </a>
+                </div>
+
+                {% if note.tag != None %}
+                <div class="card-tag">
+                    <p style="margin: 0;">{{ note.tag }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </form>
+        {% endfor %}
+    {% else %}
+        <h3 class="main-font">Não há mais nenhuma nota com essa tag.</h3>
+    {% endif %}
 </ul>
 
 <div class="back-home-container">
